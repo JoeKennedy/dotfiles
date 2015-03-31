@@ -309,3 +309,14 @@ au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+
+" Don't conceal JSON
+let g:vim_json_syntax_conceal=0
+
+" Periodic backups
+set backup
+set backupdir=~/.vim/backup
+set undodir=~/.vim/backup
+set undofile
+set directory=~/.vim/tmp
+
