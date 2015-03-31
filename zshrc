@@ -1,8 +1,8 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
-eval "$(zsh /Users/jkennedy/Documents/px/wal1-clustera-cdh4.2.1/env.sh)"
 export MAVEN_OPTS=-Xmx2G
 export M2_HOME=/usr/local/Cellar/maven/3.2.2/libexec
+export PATH="/usr/local/bin:/Users/jkennedy/.rvm/gems/ruby-2.1.2/bin:/Users/jkennedy/.rvm/gems/ruby-2.1.2@global/bin:/Users/jkennedy/.rvm/rubies/ruby-2.1.2/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/jkennedy/.rvm/bin:/Users/jkennedy/.rvm/bin:JAVA_HOME/bin:M2_HOME/bin"
 
 export ODBCINI=/etc/odbc.ini
 export ODBCSYSINI=/etc
@@ -65,18 +65,18 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/usr/local/bin:/Users/jkennedy/.rvm/gems/ruby-2.1.2/bin:/Users/jkennedy/.rvm/gems/ruby-2.1.2@global/bin:/Users/jkennedy/.rvm/rubies/ruby-2.1.2/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/jkennedy/Documents/px/wal1-clustera-cdh4.2.1/hadoop-2.0.0-mr1-cdh4.2.1/bin:/Users/jkennedy/Documents/px/wal1-clustera-cdh4.2.1/hbase-0.94.2-cdh4.2.1/bin:/Users/jkennedy/Documents/px/wal1-clustera-cdh4.2.1/hive-0.10.0-cdh4.2.1/bin:/Users/jkennedy/Documents/px/wal1-clustera-cdh4.2.1/oozie-3.3.0-cdh4.2.1/bin:/Users/jkennedy/.rvm/bin:/Users/jkennedy/.rvm/bin:JAVA_HOME/bin:M2_HOME/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  # export EDITOR='mvim'
+  export EDITOR='vim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -96,6 +96,7 @@ export PATH="/usr/local/bin:/Users/jkennedy/.rvm/gems/ruby-2.1.2/bin:/Users/jken
 alias pxbl='beeline -u jdbc:hive2://wal1-clustera01:10000 -n jkennedy --color=true --outputformat=vertical'
 
 # Easy cd-ing
+alias 1.="cd .."
 alias 2.="cd ../.."
 alias 3.="cd ../../.."
 alias 4.="cd ../../../.."
@@ -110,6 +111,8 @@ alias 10.="cd ../../../../../../../../../.."
 alias hig="history | grep"
 
 alias vimrc="vim ~/.vimrc"
+alias zshrc="vim ~/.zshrc"
+alias sozsh="source ~/.zshrc"
 alias vimup="vim +PluginInstall +qall"
 
 function setjdk() {
@@ -126,3 +129,6 @@ function removeFromPath() {
   export PATH=$(echo $PATH | sed -E -e "s;:$1;;" -e "s;$1:?;;")
 }
 setjdk 1.7
+
+eval "$(bash /Users/jkennedy/Documents/Repositories/DI-Storage/cluster-config/ue1b-labA/env.sh /Users/jkennedy/Documents/px/ue1b-labA-cdh5.2.1)"
+
