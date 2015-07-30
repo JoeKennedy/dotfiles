@@ -20,7 +20,7 @@ Plugin 'Rip-Rip/clang_complete'
 " Plugin 'guns/ultisnips'
 
 " Syntastic for objective C
-Plugin 'terhechte/syntastic'
+" Plugin 'terhechte/syntastic'
 
 " Better indentation for Objective C
 Plugin 'b4winckler/vim-objc'
@@ -86,6 +86,10 @@ Plugin 'Lokaltog/vim-easymotion'         " Wacky super motion!
 " Operators for deleting, changing, and adding surroundings like parens, brackets, etc.
 Plugin 'tpope/vim-surround'
 
+" Rails 
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-bundler'
+
 " vim-signature is a plugin to place, toggle and display marks
 Plugin 'kshenoy/vim-signature'
 
@@ -107,9 +111,11 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
-let mapleader = ","
-let g:mapleader = ","
-nmap <leader>w :w!<cr>
+
+" Enable smart tabs with airline
+let g:airline#extensions#tabline#enabled = 1
+" Use status bar by default
+set laststatus=2
 
 set so=7
 set wildmenu "autocomplete and fun stuff!
@@ -216,9 +222,11 @@ set nobackup
 set nowritebackup
 
 let mapleader = " "
+let g:mapleader = " "
 
 " Useful shortcuts with leader
 
+nnoremap <leader>w :w!<cr>
 nnoremap <Leader>c :copen<CR>
 nnoremap <Leader>C :cclose<CR>
 nnoremap <Leader>8 :set tw=80<CR>
@@ -273,19 +281,21 @@ let g:clang_exec = '/usr/local/bin/clang'
 let g:clang_library_path = '/usr/local/lib/libclang.dylib'
 
 " Show sidebar signs.
-let g:syntastic_enable_signs=1
+" let g:syntastic_enable_signs=1
 
 " Read the clang complete file
-let g:syntastic_objc_config_file = '.clang_complete'
+" let g:syntastic_objc_config_file = '.clang_complete'
 
 " Status line configuration
-set statusline+=%#warningmsg#  " Add Error ruler.
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-nnoremap <silent> ` :Errors<CR>
+" set statusline+=%#warningmsg#  " Add Error ruler.
+" set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"nnoremap <silent> ` :Errors<CR>
 
 " Tell it to use clang instead of gcc
-let g:syntastic_objc_checker = 'clang'
+" let g:syntastic_objc_checker = 'clang'
+
+nnoremap <leader>c :!ctags -R $(git rev-parse --show-toplevel) && echo "Done generating ctags"<CR>
 
 " Unite
 " "
@@ -320,3 +330,53 @@ set undodir=~/.vim/backup
 set undofile
 set directory=~/.vim/tmp
 
+" If editing a scala or java file, set the makeprg to compile with maven
+au BufNewFile,BufRead *.scala set makeprg=mvn\ compile
+au BufNewFile,BufRead *.java set makeprg=mvn\ compile
+nnoremap <Leader>m :make<CR>
+
+" Don't take over the current tab when using make
+set switchbuf=useopen,usetab,newtab
+
+" Override scala.vim's tabstop of 2 spaces
+au BufNewFile,BufRead *.scala set sw=4
+au BufNewFile,BufRead *.java set sw=4
+
+" Map Q to executing the q macro
+nnoremap Q @q
+ 
+" * * * * * * * * * * * * * * * * *
+" CtrlP plugin settings
+" * * * * * * * * * * * * * * * * *
+"
+" Ag - The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+
+let g:ctrlp_cmd = 'CtrlP'
+
+" Search by file name by default (<c-d> switches modes)
+let g:ctrlp_by_filename = 0
+
+" Regex mode by default (<c-r> to toggle)
+let g:ctrlp_regexp = 0
+
+let g:ctrlp_working_path_mode = 'acr'
+
+" CtrlP window appears at bottom instead of top
+let g:ctrlp_match_window_bottom = 1
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.class,*.tar.gz,*.tgz,*.tar,*.gzip,*.jar
+
+nnoremap <silent> <UP> :copen<CR>
+nnoremap <silent> <DOWN> :cclose<CR>
+nnoremap <silent> <RIGHT> :cnext<CR>
+nnoremap <silent> <LEFT> :cprev<CR>

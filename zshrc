@@ -3,6 +3,8 @@ export ZSH=$HOME/.oh-my-zsh
 export MAVEN_OPTS=-Xmx2G
 export M2_HOME=/usr/local/Cellar/maven/3.2.2/libexec
 export PATH="/usr/local/bin:/Users/jkennedy/.rvm/gems/ruby-2.1.2/bin:/Users/jkennedy/.rvm/gems/ruby-2.1.2@global/bin:/Users/jkennedy/.rvm/rubies/ruby-2.1.2/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/jkennedy/.rvm/bin:/Users/jkennedy/.rvm/bin:JAVA_HOME/bin:M2_HOME/bin"
+# Use exuberant ctags over the GNU one that comes by default
+export PATH="/usr/local/bin:$PATH"
 
 export ODBCINI=/etc/odbc.ini
 export ODBCSYSINI=/etc
@@ -93,7 +95,7 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias pxbl='beeline -u jdbc:hive2://wal1-clustera01:10000 -n jkennedy --color=true --outputformat=vertical'
+alias pxbl='beeline -u jdbc:hive2://ue1b-labA01:10000 -n jkennedy --color=true --outputformat=vertical'
 
 # Easy cd-ing
 alias 1.="cd .."
@@ -115,6 +117,11 @@ alias zshrc="vim ~/.zshrc"
 alias sozsh="source ~/.zshrc"
 alias vimup="vim +PluginInstall +qall"
 
+alias fuck='$(thefuck $(fc -ln -1))'
+alias FUCK='fuck'
+
+alias avro2json='java -jar ~/Documents/px/avro-tools.jar tojson --pretty'
+
 function setjdk() {
   if [ $# -ne 0 ]; then
     removeFromPath '/System/Library/Frameworks/JavaVM.framework/Home/bin'
@@ -130,5 +137,8 @@ function removeFromPath() {
 }
 setjdk 1.7
 
-eval "$(bash /Users/jkennedy/Documents/Repositories/DI-Storage/cluster-config/ue1b-labA/env.sh /Users/jkennedy/Documents/px/ue1b-labA-cdh5.2.1)"
+function bundle-reset() {
+  hadoop fs -rm -r -f /paytronix/datasets/jkennedy/full/signals/\*\*/`date +%Y-%m-%d`\*
+}
 
+eval "$(bash /Users/jkennedy/Documents/Repositories/DI-Storage/cluster-config/ue1b-labA/env.sh /Users/jkennedy/Documents/px/ue1b-labA-cdh5.2.1)"
