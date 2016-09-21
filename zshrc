@@ -2,10 +2,11 @@
 export ZSH=$HOME/.oh-my-zsh
 export MAVEN_OPTS=-Xmx2G
 export M2_HOME=/usr/local/Cellar/maven/3.2.2/libexec
-export PATH="/usr/local/bin:/Users/jkennedy/.rvm/gems/ruby-2.1.2/bin:/Users/jkennedy/.rvm/gems/ruby-2.1.2@global/bin:/Users/jkennedy/.rvm/rubies/ruby-2.1.2/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/jkennedy/.rvm/bin:/Users/jkennedy/.rvm/bin:JAVA_HOME/bin:M2_HOME/bin"
-# Use exuberant ctags over the GNU one that comes by default
-export PATH="/usr/local/bin:$PATH"
 
+# Source local path file
+[[ -f ~/.path.local  ]] && source ~/.path.local
+
+export MONO_GAC_PREFIX="/usr/local"
 export ODBCINI=/etc/odbc.ini
 export ODBCSYSINI=/etc
 export FREETDSCONF=/etc/freetds/freetds.conf
@@ -16,6 +17,8 @@ export JAVA_OPTS=-Xmx768m
 export ANT_ARGS=-Dconfig=jkennedy.properties
 export ANT_HOME=/usr/share/ant
 export ANT_OPTS='-Xmx512M -DnonBatchMode -DcheckZipIndexTimestamp -DuseJavaUtilZip'
+
+ulimit -n 4096
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -70,7 +73,12 @@ source $ZSH/oh-my-zsh.sh
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+# Commenting this out to get rid of weird tabbing issues with zsh
+# export LC_CTYPE=C 
+# export LANG=C
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -120,25 +128,25 @@ alias vimup="vim +PluginInstall +qall"
 alias fuck='$(thefuck $(fc -ln -1))'
 alias FUCK='fuck'
 
-alias avro2json='java -jar ~/Documents/px/avro-tools.jar tojson --pretty'
+# function setjdk() {
+#   if [ $# -ne 0 ]; then
+#     removeFromPath '/System/Library/Frameworks/JavaVM.framework/Home/bin'
+#     if [ -n "${JAVA_HOME+x}" ]; then
+#       removeFromPath $JAVA_HOME
+#     fi
+#     export JAVA_HOME=`/usr/libexec/java_home -v $@`
+#     export PATH=$JAVA_HOME/bin:$PATH
+#   fi
+# }
+# function removeFromPath() {
+#   export PATH=$(echo $PATH | sed -E -e "s;:$1;;" -e "s;$1:?;;")
+# }
+# setjdk 1.7
 
-function setjdk() {
-  if [ $# -ne 0 ]; then
-    removeFromPath '/System/Library/Frameworks/JavaVM.framework/Home/bin'
-    if [ -n "${JAVA_HOME+x}" ]; then
-      removeFromPath $JAVA_HOME
-    fi
-    export JAVA_HOME=`/usr/libexec/java_home -v $@`
-    export PATH=$JAVA_HOME/bin:$PATH
-  fi
-}
-function removeFromPath() {
-  export PATH=$(echo $PATH | sed -E -e "s;:$1;;" -e "s;$1:?;;")
-}
-setjdk 1.7
+export HALCYON_GHC_NO_STRIP=1
+export HALCYON_GHC_VERSION=7.10.1
+export HALCYON_CABAL_VERSION=1.22.6.0
+eval "$( HALCYON_NO_SELF_UPDATE=1 /app/halcyon/halcyon paths )"
 
-function bundle-reset() {
-  hadoop fs -rm -r -f /paytronix/datasets/jkennedy/full/signals/\*\*/`date +%Y-%m-%d`\*
-}
-
-eval "$(bash /Users/jkennedy/Documents/Repositories/DI-Storage/cluster-config/ue1b-labA/env.sh /Users/jkennedy/Documents/px/ue1b-labA-cdh5.2.1)"
+# Local config
+[[ -f ~/.zshrc.local  ]] && source ~/.zshrc.local

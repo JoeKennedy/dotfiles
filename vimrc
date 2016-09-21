@@ -19,9 +19,6 @@ Plugin 'Rip-Rip/clang_complete'
 " Ultisnips
 " Plugin 'guns/ultisnips'
 
-" Syntastic for objective C
-" Plugin 'terhechte/syntastic'
-
 " Better indentation for Objective C
 Plugin 'b4winckler/vim-objc'
 
@@ -82,13 +79,18 @@ Plugin 'tsukkee/unite-help'              " Add help source to unite
 Plugin 'tsukkee/unite-tag'               " Add tag source to unite
 Plugin 'Lokaltog/vim-easymotion'         " Wacky super motion!
 
+" Improve ruby-vim integration
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'tpope/vim-bundler'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-rails'
+
+" Haskell & Yesod
+Plugin 'pbrisbin/vim-syntax-shakespeare'
 
 " Operators for deleting, changing, and adding surroundings like parens, brackets, etc.
 Plugin 'tpope/vim-surround'
-
-" Rails 
-Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-bundler'
 
 " vim-signature is a plugin to place, toggle and display marks
 Plugin 'kshenoy/vim-signature'
@@ -96,6 +98,9 @@ Plugin 'kshenoy/vim-signature'
 " JS beautify
 Plugin 'maksimr/vim-jsbeautify'
 Plugin 'einars/js-beautify'
+
+" Common Lisp
+Plugin 'kovisoft/slimv'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -116,6 +121,10 @@ filetype plugin indent on    " required
 let g:airline#extensions#tabline#enabled = 1
 " Use status bar by default
 set laststatus=2
+
+" slimv
+" let g:slimv_swank_cmd = '!osascript -e "sbcl --load ~/.vim/bundle/slimv/slime/start-swank.lisp"'
+"let g:slimv_swank_cmd = '!osascript -e "tell application \"iTerm 2\" to do script \"sbcl --load ~/.vim/bundle/slimv/slime/start-swank.lisp\""'
 
 set so=7
 set wildmenu "autocomplete and fun stuff!
@@ -160,6 +169,9 @@ set background=dark
 colorscheme vimbrant
 set nonu
 
+" formatting for *.riif files
+au BufWinEnter,BufRead,BufNewFile *.riif set filetype=ruby
+
 set encoding=utf8
 try
   lang en_US
@@ -181,23 +193,6 @@ set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
 
-"Bracket and Paren auto expansion
-vnoremap $1 <esc>`>a)<esc>`<i(<esc>
-vnoremap $2 <esc>`>a]<esc>`<i[<esc>
-vnoremap $3 <esc>`>a}<esc>`<i{<esc>
-vnoremap $$ <esc>`>a"<esc>`<i"<esc>
-vnoremap $q <esc>`>a'<esc>`<i'<esc>
-vnoremap $e <esc>`>a"<esc>`<i"<esc>
-
-" Map auto complete of (, ", ', [
-inoremap $1 ()<esc>i
-inoremap $2 []<esc>i
-inoremap $3 {}<esc>i
-inoremap $4 {<esc>o}<esc>O
-inoremap $q ''<esc>i
-inoremap $e ""<esc>i
-inoremap $t <><esc>i
-
 set cursorline
 hi CursorLine cterm=NONE
 
@@ -216,10 +211,6 @@ set tw=80
 set wrap
 "highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 "match OverLength /\%81v.\+/
-
-set noswapfile
-set nobackup
-set nowritebackup
 
 let mapleader = " "
 let g:mapleader = " "
@@ -241,6 +232,7 @@ nnoremap <Leader>= <C-w>=
 nnoremap <Leader>p :CtrlP<CR>
 nnoremap <Leader>n :NERDTree<CR>
 
+nnoremap <leader>w :w!<cr>
 nnoremap <Leader>H <C-w>H
 nnoremap <Leader>J <C-w>J
 nnoremap <Leader>K <C-w>K
@@ -279,23 +271,6 @@ let g:clang_snippets_engine = 'ultisnips'
 " This might change depending on your installation
 let g:clang_exec = '/usr/local/bin/clang'
 let g:clang_library_path = '/usr/local/lib/libclang.dylib'
-
-" Show sidebar signs.
-" let g:syntastic_enable_signs=1
-
-" Read the clang complete file
-" let g:syntastic_objc_config_file = '.clang_complete'
-
-" Status line configuration
-" set statusline+=%#warningmsg#  " Add Error ruler.
-" set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-"nnoremap <silent> ` :Errors<CR>
-
-" Tell it to use clang instead of gcc
-" let g:syntastic_objc_checker = 'clang'
-
-nnoremap <leader>c :!ctags -R $(git rev-parse --show-toplevel) && echo "Done generating ctags"<CR>
 
 " Unite
 " "
@@ -380,3 +355,7 @@ nnoremap <silent> <UP> :copen<CR>
 nnoremap <silent> <DOWN> :cclose<CR>
 nnoremap <silent> <RIGHT> :cnext<CR>
 nnoremap <silent> <LEFT> :cprev<CR>
+
+if filereadable($HOME . "/.vimrc.local")
+  source ~/.vimrc.local
+endif
