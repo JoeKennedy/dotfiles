@@ -150,3 +150,5 @@ eval "$( HALCYON_NO_SELF_UPDATE=1 /app/halcyon/halcyon paths )"
 
 # Local config
 [[ -f ~/.zshrc.local  ]] && source ~/.zshrc.local
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
