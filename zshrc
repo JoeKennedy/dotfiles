@@ -11,12 +11,12 @@ export ODBCINI=/etc/odbc.ini
 export ODBCSYSINI=/etc
 export FREETDSCONF=/etc/freetds/freetds.conf
  
-export JAVA_HOME=$(/usr/libexec/java_home)
-export JAVA_OPTS=-Xmx768m
+# export JAVA_HOME=$(/usr/libexec/java_home)
+# export JAVA_OPTS=-Xmx768m
 
-export ANT_ARGS=-Dconfig=jkennedy.properties
-export ANT_HOME=/usr/share/ant
-export ANT_OPTS='-Xmx512M -DnonBatchMode -DcheckZipIndexTimestamp -DuseJavaUtilZip'
+# export ANT_ARGS=-Dconfig=jkennedy.properties
+# export ANT_HOME=/usr/share/ant
+# export ANT_OPTS='-Xmx512M -DnonBatchMode -DcheckZipIndexTimestamp -DuseJavaUtilZip'
 
 ulimit -n 4096
 
