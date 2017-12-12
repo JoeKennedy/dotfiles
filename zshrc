@@ -145,11 +145,6 @@ alias FUCK='fuck'
 # }
 # setjdk 1.7
 
-export HALCYON_GHC_NO_STRIP=1
-export HALCYON_GHC_VERSION=7.10.1
-export HALCYON_CABAL_VERSION=1.22.6.0
-eval "$( HALCYON_NO_SELF_UPDATE=1 /app/halcyon/halcyon paths )"
-
 # Local config
 [[ -f ~/.zshrc.local  ]] && source ~/.zshrc.local
 

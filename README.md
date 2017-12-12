@@ -393,58 +393,30 @@ Put new projects in `~/quicklisp/local-projects` or `~/git`.
 
 ## Haskell Setup
 
-Due to its integration with [Haskell On Heroku](https://haskellonheroku.com/),
-[Halcyon](https://halcyon.sh/) is currently my go-to Haskell package manager.
-Hopefully someone writes an integration for Stackage soon...
+With [Stack](https://docs.haskellstack.org/en/stable/README/), installing
+Haskell is super easy.
 
-### Setup Halcyon
+### Install Stack
 
-As of the most recent commit, Halcyon doesn't support newer versions of OSX. So
-instead of running the install script via `curl`, it needs to be downloaded
-and tweaked a bit.
+Simply use homebrew:
 
 ```bash
-git clone https://github.com/mietek/halcyon ~/git/halcyon
-cd ~/git/halcyon
-vim setup.sh
+brew install stack
 ```
 
-Edit the `osx` section to ensure that the current version of OSX is included.
-Then, setup Halcyon
-
-```bash
-brew install bash coreutils git pigz
-sh setup.sh
-```
-
-When you run the setup script, there will be a "cannot install OS packages" warning.
-As long as the packages listed in the warning are installed, and they should be
-because of the `brew install` line, halcyon should be set up. Congrats!
-
-Be sure to run `source ~/.zshrc` when halcyon setup is complete to ensure
-that the `halcyon` command is added to your shell session.
-
-### Install GHC and Cabal
-
-A simple one line command will install both GHC and Cabal. It will likely take a
-few minutes.
-
-```bash
-halcyon install
-```
+As far as I remember, this should install GHC and cabal as well.
 
 ### Install Yesod
 
 Yesod is a sweet MVC framework for Haskell. Yesod bin allows you to run `yesod`
-commands in your terminal
+commands in your terminal.
 
 ```bash
-cabal install yesod
 cabal install yesod-bin
 ```
 
 ### Install apps
 
-Simply run the `halcyon install` command in a haskell project to get it up and
+Simply run the `stack build` command in a haskell project to get it up and
 running. It might take a while the first time, since it's setting up a sandbox.
 
