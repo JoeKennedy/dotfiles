@@ -149,3 +149,8 @@ alias FUCK='fuck'
 [[ -f ~/.zshrc.local  ]] && source ~/.zshrc.local
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+eval "$(jenv init -)"
+
+export PATH="$PATH:$HOME/.local/bin" # Add local bin to PATH
