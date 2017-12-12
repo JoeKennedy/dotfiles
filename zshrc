@@ -2,6 +2,8 @@
 export ZSH=$HOME/.oh-my-zsh
 export MAVEN_OPTS=-Xmx2G
 export M2_HOME=/usr/local/Cellar/maven/3.2.2/libexec
+export ECLIPSE_HOME="/Applications/Eclipse.app/Contents/Eclipse"
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home
 
 # Source local path file
 [[ -f ~/.path.local  ]] && source ~/.path.local
@@ -10,7 +12,7 @@ export MONO_GAC_PREFIX="/usr/local"
 export ODBCINI=/etc/odbc.ini
 export ODBCSYSINI=/etc
 export FREETDSCONF=/etc/freetds/freetds.conf
- 
+
 # export JAVA_HOME=$(/usr/libexec/java_home)
 # export JAVA_OPTS=-Xmx768m
 
