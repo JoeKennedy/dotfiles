@@ -433,6 +433,16 @@ few minutes.
 halcyon install
 ```
 
+### Install Yesod
+
+Yesod is a sweet MVC framework for Haskell. Yesod bin allows you to run `yesod`
+commands in your terminal
+
+```bash
+cabal install yesod
+cabal install yesod-bin
+```
+
 ### Install apps
 
 Simply run the `halcyon install` command in a haskell project to get it up and
